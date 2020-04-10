@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardsAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,6 +33,10 @@ namespace CardsAPI
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Cards API", Version = "1.0.0" });
             });
+
+            // TODO To add a real database and remove the inmemory database.
+            services.AddDbContext<UserDbContext>(opt =>
+            opt.UseInMemoryDatabase("UsersDB"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
