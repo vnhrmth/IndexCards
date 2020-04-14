@@ -6,9 +6,9 @@ namespace CardsAPI.Models
     public class DbTopic 
     {
         [Key]
-        public int Id;
-        public string Name;
-        public List<DbCard> Cards;
-        public string tag;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<DbCard> Cards { get; set; }
+        public string Tag { get; set; }
     }
 }
