@@ -24,5 +24,11 @@ namespace CardsAPI.Controllers
         {
             return Ok(_loginService.Signup(user));
         }
+
+        [HttpPost("username")]
+        public ActionResult<User> Post([FromBody] LoginUserUpsertion loginUserUpsertion)
+        {
+            return Ok(_loginService.Login(loginUserUpsertion.MailId, loginUserUpsertion.Password));
+        }
     }
 }
