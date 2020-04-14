@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardsAPI.Models;
+using CardsAPI.Repository;
+using CardsAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +39,9 @@ namespace CardsAPI
             // TODO To add a real database and remove the inmemory database.
             services.AddDbContext<UserDbContext>(opt =>
             opt.UseInMemoryDatabase("UsersDB"));
+
+            services.AddTransient<ILogin, LoginService>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
