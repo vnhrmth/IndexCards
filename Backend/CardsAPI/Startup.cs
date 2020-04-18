@@ -54,7 +54,7 @@ namespace CardsAPI
 
             services.ConfigureApplicationCookie(x =>
             {
-                x.ExpireTimeSpan = TimeSpan.FromDays(1);
+                x.ExpireTimeSpan = TimeSpan.FromDays(1);//TODO check what is the ideal time for expiring tokens.
             });
 
             services.AddAuthentication(options =>
