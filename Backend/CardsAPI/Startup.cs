@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using CardsAPI.Email;
 using CardsAPI.Models;
 using CardsAPI.Repository;
-using CardsAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +43,6 @@ namespace CardsAPI
             services.AddDbContext<UserDbContext>(opt =>
             opt.UseInMemoryDatabase("UsersDB"));
 
-            services.AddTransient<ILogin, LoginService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 
