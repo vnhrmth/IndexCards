@@ -19,6 +19,7 @@ jobs:
         dotnet-version: 2.1.700
     - name: Install dependencies
       run: dotnet restore
+      working-directory: IndexCards/Backend/CardsAPI/
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
