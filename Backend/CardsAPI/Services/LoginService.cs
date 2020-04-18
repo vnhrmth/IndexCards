@@ -17,5 +17,10 @@ namespace CardsAPI.Services
         {
             return _userRepository.Signup(user);
         }
+
+        public User Login(string emailId,string password)
+        {
+            return _userRepository.Login(emailId, password).Result;
+        }
     }
 }
