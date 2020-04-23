@@ -59,21 +59,34 @@ namespace CardsAPI.Controllers
 
         [HttpPost("Signin")]
         [AllowAnonymous]
-        public async Task<ActionResult<bool>> Signin([FromBody] LoginUserUpsertion user)
+        public async Task<object> Signin([FromBody] LoginUserUpsertion user)
         {
             try
             {
                 var identityUser = await _userManager.FindByEmailAsync(user.MailId);
                 if (null == identityUser)
                 {
-                    return false;
+                    throw new HttpRequestException("No such user found");
                 }
-                var result = await _signInManager.PasswordSignInAsync(user.MailId, user.Password, true, false);
-                return result.Succeeded;
+                var checkPasswordResult = await _signInManager.CheckPasswordSignInAsync(identityUser,user.Password,true);
+                
+                if (null != checkPasswordResult && checkPasswordResult.Succeeded)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.MailId, user.Password, true, false);
+                    if (null != result && result.Succeeded)
+                    {
+                        User usr = new User();
+                        usr.MailId = user.MailId;
+                        usr.Name = usr.Name;
+                        return Ok(usr);
+                    }
+                }                
+
+                throw new HttpRequestException("Incorrect Username/Password");
             }
             catch (Exception ex)
             {
-                return false;
+                return BadRequest(ex.Message);
             }
         }
 

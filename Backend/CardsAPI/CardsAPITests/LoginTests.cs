@@ -11,10 +11,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Tests
 {
-    public class Tests
+    public class LoginTests
     {
         private Mock<FakeUserManager> _userManagerMock;
         private Mock<FakeSignInManager> _signInManagerMock;
@@ -39,9 +40,10 @@ namespace Tests
             userUpsertion.MailId = "user@example.com";
             userUpsertion.Password = "123";
 
-            
+
             _userManagerMock.Setup(x =>
-            x.CreateAsync(It.IsAny<IdentityUser>(), userUpsertion.Password)).Returns(Task.FromResult(IdentityResult.Success));
+            x.CreateAsync(It.IsAny<IdentityUser>(), userUpsertion.Password)).
+            Returns(Task.FromResult(IdentityResult.Success));
 
             // Act
             var response = _loginController.Signup(userUpsertion);
@@ -49,14 +51,14 @@ namespace Tests
             ObjectResult objectResult = response.Result as ObjectResult;
 
             //// Assert
-            Assert.AreEqual(objectResult.StatusCode,(int)HttpStatusCode.Created);
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.Created);
         }
 
         [Test]
-        [TestCase("user1","","")]
+        [TestCase("user1", "", "")]
         [TestCase("user1", "user@example.com", "")]
         [TestCase("", "", "")]
-        public void When_signup_method_is_called_with_empty_parameters_then_return_bad_request(string name,string mailId,string password)
+        public void When_signup_method_is_called_with_empty_parameters_then_return_bad_request(string name, string mailId, string password)
         {
             UserUpsertion userUpsertion = new UserUpsertion();
             userUpsertion.Name = name;
@@ -68,7 +70,7 @@ namespace Tests
             var objectResult = response.Result as ObjectResult;
 
             //// Assert
-            Assert.AreEqual(objectResult.StatusCode,(int)HttpStatusCode.BadRequest);
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
 
         [Test]
@@ -90,5 +92,61 @@ namespace Tests
             //// Assert
             Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
+
+        [Test]
+        public void When_login_method_is_called_with_credentials_then_return_Ok_status_code()
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = "user@example.com";
+            loginUserUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(loginUserUpsertion.MailId)).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _signInManagerMock.Setup(x =>
+            x.CheckPasswordSignInAsync(It.IsAny<IdentityUser>(), It.IsAny<string>(), It.IsAny<bool>())).
+            Returns(Task.FromResult(SignInResult.Success));
+
+            _signInManagerMock.Setup(x =>
+            x.PasswordSignInAsync(It.IsAny<string>(),
+                                  It.IsAny<string>(),
+                                  It.IsAny<bool>(),
+                                  It.IsAny<bool>())).
+            Returns(Task.FromResult(SignInResult.Success));
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            //// Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.OK);
+        }
+
+        [Test]
+        [TestCase("", "")]
+        [TestCase("user@example.com","")]
+        [TestCase("", "123")]
+        [TestCase("user@example","123")]
+        public void When_login_method_is_called_with_wrong_format_then_return_bad_request_status_code(string emailId,string password)
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = emailId;
+            loginUserUpsertion.Password = password;
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(loginUserUpsertion.MailId)).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            //// Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
     }
 }
+
