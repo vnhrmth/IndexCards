@@ -22,7 +22,7 @@ jobs:
       working-directory: Backend/CardsAPI
     - name: Build
       run: dotnet build --configuration Release --no-restore
-      working-directory: Backend/CardsAPI.sln
+      working-directory: Backend/CardsAPI
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-      working-directory: Backend/CardsAPI.sln
+      working-directory: Backend/CardsAPITests/CardsAPITests.csproj
