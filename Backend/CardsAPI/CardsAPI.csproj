@@ -51,6 +51,7 @@
     <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.dll" />
     <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.pdb" />
     <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.CopyComplete" />
+    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csprojAssemblyReference.cache" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.runtimeconfig.json" />
@@ -70,5 +71,6 @@
     <Compile Remove="CardsAPITests\UnitTest1.cs" />
     <Compile Remove="CardsAPITests\UnitTest1.cs" />
     <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />
+    <Compile Remove="CardsAPITests\LoginTests.cs" />
   </ItemGroup>
 </Project>
