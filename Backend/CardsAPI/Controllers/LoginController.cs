@@ -28,7 +28,7 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("Signup")]
-        public async Task<ActionResult<User>> Signup([FromBody]UserUpsertion user)
+        public async Task<object> Signup([FromBody]UserUpsertion user)
         {
             try
             {
@@ -40,23 +40,20 @@ namespace CardsAPI.Controllers
                 var result = await _userManager.CreateAsync(loginUser, user.Password);
                 if (result.Succeeded)
                 {
-                    User userModel = new User();
-                    userModel.MailId = loginUser.Email;
-                    return Ok(userModel);
+                    HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
+                    httpResponseMessage.StatusCode = HttpStatusCode.Created;
+                    return Created(string.Empty, httpResponseMessage);
                 }
-                var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 var errorStr = "";
                 foreach(IdentityError error in result.Errors)
                 {
-                    errorStr += error.Description + "\n";
+                    errorStr += error.Description;
                 }
-                response.Content = new StringContent(errorStr);
-
                 throw new HttpRequestException(errorStr);
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 

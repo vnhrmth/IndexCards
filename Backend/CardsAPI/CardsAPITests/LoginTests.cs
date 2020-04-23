@@ -31,7 +31,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_signup_method_is_called_with_data_then_return_created_user()
+        public void When_signup_method_is_called_with_data_then_return_created_status_code()
         {
             // Arrange
             UserUpsertion userUpsertion = new UserUpsertion();
@@ -46,8 +46,10 @@ namespace Tests
             // Act
             var response = _loginController.Signup(userUpsertion);
 
+            ObjectResult objectResult = response.Result as ObjectResult;
+
             //// Assert
-            Assert.IsNotNull(response.Result.Result);
+            Assert.AreEqual(objectResult.StatusCode,(int)HttpStatusCode.Created);
         }
 
         [Test]
@@ -63,10 +65,30 @@ namespace Tests
 
             // Act
             var response = _loginController.Signup(userUpsertion);
-            var objectResult = response.Result.Result as ObjectResult;
+            var objectResult = response.Result as ObjectResult;
 
             //// Assert
-            Assert.AreEqual(objectResult.StatusCode.Value, (int)HttpStatusCode.BadRequest);
+            Assert.AreEqual(objectResult.StatusCode,(int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void When_signup_method_is_called_with_failure_result_then_return_bad_request()
+        {
+            UserUpsertion userUpsertion = new UserUpsertion();
+            userUpsertion.Name = "V";
+            userUpsertion.MailId = "v@example.com";
+            userUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.CreateAsync(It.IsAny<IdentityUser>(),
+            "123")).Returns(Task.FromResult(IdentityResult.Failed(new IdentityError())));
+
+            // Act
+            var response = _loginController.Signup(userUpsertion);
+            var objectResult = response.Result as ObjectResult;
+
+            //// Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
     }
 }
