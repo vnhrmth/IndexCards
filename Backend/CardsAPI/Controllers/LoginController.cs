@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Net.Http;
+using System.Net;
 
 namespace CardsAPI.Controllers
 {
@@ -26,7 +28,7 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("Signup")]
-        public async Task<ActionResult<User>> Post([FromBody]UserUpsertion user)
+        public async Task<object> Signup([FromBody]UserUpsertion user)
         {
             try
             {
@@ -38,41 +40,59 @@ namespace CardsAPI.Controllers
                 var result = await _userManager.CreateAsync(loginUser, user.Password);
                 if (result.Succeeded)
                 {
-                    User userModel = new User();
-                    userModel.MailId = loginUser.Email;
-                    return Ok(userModel);
+                    HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
+                    httpResponseMessage.StatusCode = HttpStatusCode.Created;
+                    return Created(string.Empty, httpResponseMessage);
                 }
-                //Throw errors Exception handling TODO
+                var errorStr = "";
+                foreach(IdentityError error in result.Errors)
+                {
+                    errorStr += error.Description;
+                }
+                throw new HttpRequestException(errorStr);
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
             }
-            return null;
         }
 
         [HttpPost("Signin")]
         [AllowAnonymous]
-        public async Task<ActionResult<bool>> Post([FromBody] LoginUserUpsertion user)
+        public async Task<object> Signin([FromBody] LoginUserUpsertion user)
         {
             try
             {
                 var identityUser = await _userManager.FindByEmailAsync(user.MailId);
                 if (null == identityUser)
                 {
-                    return false;
+                    throw new HttpRequestException("No such user found");
                 }
-                var result = await _signInManager.PasswordSignInAsync(user.MailId, user.Password, true, false);
-                return result.Succeeded;
+                var checkPasswordResult = await _signInManager.CheckPasswordSignInAsync(identityUser,user.Password,true);
+                
+                if (null != checkPasswordResult && checkPasswordResult.Succeeded)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.MailId, user.Password, true, false);
+                    if (null != result && result.Succeeded)
+                    {
+                        User usr = new User();
+                        usr.MailId = user.MailId;
+                        usr.Name = usr.Name;
+                        return Ok(usr);
+                    }
+                }                
+
+                throw new HttpRequestException("Incorrect Username/Password");
             }
             catch (Exception ex)
             {
-                return false;
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("ForgotPassword")]
         [AllowAnonymous]
-        public async Task<ActionResult<bool>> Post(string emailId)
+        public async Task<ActionResult<bool>> ForgetPassword(string emailId)
         {
             try
             {
@@ -107,8 +127,10 @@ namespace CardsAPI.Controllers
                                                                      _userManager.Options.Tokens.PasswordResetTokenProvider,
                                                                      "ResetPassword", Result);
                 // if result is true then redirect to a link for resetting password and confirm password
-                if (result) return Redirect("http://www.google.com");// redirect to reset password link if it is regardless
+                // redirect to reset password link if it is regardless
                 // failure then show failure message in the resetpassword link.
+                if (result) return Redirect("http://www.google.com");
+                
                 return result;
             }
             catch (Exception ex)
@@ -118,7 +140,7 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("ConfirmResetPassword")]
-        public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
+        public async Task<ActionResult<bool>> ConfirmResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
         {
             try
             {
