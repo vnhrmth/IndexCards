@@ -21,7 +21,7 @@ jobs:
       run: dotnet restore
       working-directory: Backend/CardsAPI
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release
       working-directory: Backend/CardsAPI
     - name: Test
       run: dotnet test --configuration Release --verbosity normal
