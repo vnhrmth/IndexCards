@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2.1.0
@@ -23,6 +23,8 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
       working-directory: Backend/CardsAPI
+    - name: Install test dependencies
+      working-directory: Backend/CardsAPITests/CardsAPITests
     - name: Test
       run: dotnet test --configuration Release --verbosity normal
-      working-directory: Backend/CardsAPITests/
+      working-directory: Backend/CardsAPITests
