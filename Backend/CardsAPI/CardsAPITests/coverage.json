@@ -1,0 +1,727 @@
+{
+  "CardsAPI.dll": {
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Program.cs": {
+      "CardsAPI.Program": {
+        "System.Void CardsAPI.Program::Main(System.String[])": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Hosting.IWebHostBuilder CardsAPI.Program::CreateWebHostBuilder(System.String[])": {
+          "Lines": {
+            "21": 0,
+            "22": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Startup.cs": {
+      "CardsAPI.Startup": {
+        "Microsoft.Extensions.Configuration.IConfiguration CardsAPI.Startup::get_Configuration()": {
+          "Lines": {
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Void CardsAPI.Startup::ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "34": 0,
+            "35": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "43": 0,
+            "44": 0,
+            "46": 0,
+            "47": 0,
+            "49": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0
+          },
+          "Branches": []
+        },
+        "System.Void CardsAPI.Startup::Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)": {
+          "Lines": {
+            "76": 0,
+            "77": 0,
+            "78": 0,
+            "79": 0,
+            "80": 0,
+            "82": 0,
+            "83": 0,
+            "84": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0,
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0
+          },
+          "Branches": [
+            {
+              "Line": 77,
+              "Offset": 9,
+              "EndOffset": 11,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 77,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CardsAPI.Startup::.ctor(Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Repository/UserRepository.cs": {
+      "CardsAPI.Repository.UserRepository": {
+        "System.Void CardsAPI.Repository.UserRepository::.ctor(CardsAPI.Models.UserDbContext)": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/DbCard.cs": {
+      "CardsAPI.Models.DbCard": {
+        "System.Int32 CardsAPI.Models.DbCard::get_Id()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbCard::get_Content()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 CardsAPI.Models.DbCard::get_Index()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/DbTopic.cs": {
+      "CardsAPI.Models.DbTopic": {
+        "System.Int32 CardsAPI.Models.DbTopic::get_Id()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbTopic::get_Name()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.List`1<CardsAPI.Models.DbCard> CardsAPI.Models.DbTopic::get_Cards()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbTopic::get_Tag()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/DbUser.cs": {
+      "CardsAPI.Models.DbUser": {
+        "System.Int32 CardsAPI.Models.DbUser::get_Id()": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbUser::get_Username()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbUser::get_Password()": {
+          "Lines": {
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.DbUser::get_MailId()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.List`1<CardsAPI.Models.DbTopic> CardsAPI.Models.DbUser::get_Topics()": {
+          "Lines": {
+            "13": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/LoginUserUpsertion.cs": {
+      "CardsAPI.Models.LoginUserUpsertion": {
+        "System.String CardsAPI.Models.LoginUserUpsertion::get_MailId()": {
+          "Lines": {
+            "10": 22
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.LoginUserUpsertion::get_Password()": {
+          "Lines": {
+            "11": 11
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/ResetPasswordModel.cs": {
+      "CardsAPI.Models.ResetPasswordModel": {
+        "System.String CardsAPI.Models.ResetPasswordModel::get_Email()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.ResetPasswordModel::get_Password()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.ResetPasswordModel::get_ConfirmPassword()": {
+          "Lines": {
+            "20": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.ResetPasswordModel::get_Token()": {
+          "Lines": {
+            "21": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/User.cs": {
+      "CardsAPI.Models.User": {
+        "System.String CardsAPI.Models.User::get_Id()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.User::get_Name()": {
+          "Lines": {
+            "9": 2
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.User::get_Password()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.User::get_MailId()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/UserDbContext.cs": {
+      "CardsAPI.Models.UserDbContext": {
+        "Microsoft.EntityFrameworkCore.DbSet`1<CardsAPI.Models.DbUser> CardsAPI.Models.UserDbContext::get_Users()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<CardsAPI.Models.DbTopic> CardsAPI.Models.UserDbContext::get_Topics()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<CardsAPI.Models.DbCard> CardsAPI.Models.UserDbContext::get_Cards()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.Void CardsAPI.Models.UserDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<CardsAPI.Models.UserDbContext>)": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "12": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Models/UserUpsertion.cs": {
+      "CardsAPI.Models.UserUpsertion": {
+        "System.String CardsAPI.Models.UserUpsertion::get_Name()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.UserUpsertion::get_Password()": {
+          "Lines": {
+            "9": 12
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Models.UserUpsertion::get_MailId()": {
+          "Lines": {
+            "13": 15
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Email/EmailConfiguration.cs": {
+      "CardsAPI.Email.EmailConfiguration": {
+        "System.String CardsAPI.Email.EmailConfiguration::get_From()": {
+          "Lines": {
+            "6": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Email.EmailConfiguration::get_SmtpServer()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 CardsAPI.Email.EmailConfiguration::get_Port()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Email.EmailConfiguration::get_Username()": {
+          "Lines": {
+            "12": 0
+          },
+          "Branches": []
+        },
+        "System.String CardsAPI.Email.EmailConfiguration::get_Password()": {
+          "Lines": {
+            "14": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Email/EmailSender.cs": {
+      "CardsAPI.Email.EmailSender": {
+        "System.Void CardsAPI.Email.EmailSender::.ctor(CardsAPI.Email.IEmailConfiguration)": {
+          "Lines": {
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "16": 0
+          },
+          "Branches": []
+        }
+      },
+      "CardsAPI.Email.EmailSender/<SendEmailAsync>d__2": {
+        "System.Void CardsAPI.Email.EmailSender/<SendEmailAsync>d__2::MoveNext()": {
+          "Lines": {
+            "18": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "40": 0,
+            "41": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/Users/audiologymacbookpro4/Desktop/IndexCards/Backend/CardsAPI/Controllers/LoginController.cs": {
+      "CardsAPI.Controllers.LoginController": {
+        "System.Void CardsAPI.Controllers.LoginController::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.AspNetCore.Identity.SignInManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender)": {
+          "Lines": {
+            "21": 10,
+            "22": 10,
+            "23": 10,
+            "24": 10,
+            "25": 10,
+            "26": 10,
+            "27": 10,
+            "28": 10
+          },
+          "Branches": []
+        }
+      },
+      "CardsAPI.Controllers.LoginController/<Signup>d__4": {
+        "System.Void CardsAPI.Controllers.LoginController/<Signup>d__4::MoveNext()": {
+          "Lines": {
+            "32": 5,
+            "34": 5,
+            "35": 5,
+            "36": 5,
+            "37": 5,
+            "38": 5,
+            "39": 5,
+            "40": 5,
+            "41": 5,
+            "42": 1,
+            "43": 1,
+            "44": 1,
+            "45": 1,
+            "47": 1,
+            "48": 5,
+            "49": 1,
+            "50": 1,
+            "51": 1,
+            "52": 1,
+            "54": 4,
+            "55": 4,
+            "56": 4,
+            "58": 5
+          },
+          "Branches": [
+            {
+              "Line": 41,
+              "Offset": 236,
+              "EndOffset": 238,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 41,
+              "Offset": 236,
+              "EndOffset": 295,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 48,
+              "Offset": 396,
+              "EndOffset": 331,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 48,
+              "Offset": 396,
+              "EndOffset": 398,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "CardsAPI.Controllers.LoginController/<Signin>d__5": {
+        "System.Void CardsAPI.Controllers.LoginController/<Signin>d__5::MoveNext()": {
+          "Lines": {
+            "63": 5,
+            "65": 5,
+            "66": 5,
+            "67": 5,
+            "68": 0,
+            "69": 0,
+            "71": 5,
+            "73": 5,
+            "74": 1,
+            "75": 1,
+            "76": 1,
+            "77": 1,
+            "78": 1,
+            "79": 1,
+            "80": 1,
+            "81": 1,
+            "83": 0,
+            "85": 4,
+            "87": 4,
+            "88": 4,
+            "89": 4,
+            "91": 5
+          },
+          "Branches": [
+            {
+              "Line": 67,
+              "Offset": 204,
+              "EndOffset": 206,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 67,
+              "Offset": 204,
+              "EndOffset": 218,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 5
+            },
+            {
+              "Line": 73,
+              "Offset": 375,
+              "EndOffset": 377,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 73,
+              "Offset": 375,
+              "EndOffset": 390,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 4
+            },
+            {
+              "Line": 73,
+              "Offset": 395,
+              "EndOffset": 400,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 76,
+              "Offset": 564,
+              "EndOffset": 566,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 1
+            },
+            {
+              "Line": 76,
+              "Offset": 564,
+              "EndOffset": 579,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 76,
+              "Offset": 584,
+              "EndOffset": 586,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 1
+            },
+            {
+              "Line": 76,
+              "Offset": 584,
+              "EndOffset": 664,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 73,
+              "Offset": 395,
+              "EndOffset": 672,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 4
+            }
+          ]
+        }
+      },
+      "CardsAPI.Controllers.LoginController/<ForgetPassword>d__6": {
+        "System.Void CardsAPI.Controllers.LoginController/<ForgetPassword>d__6::MoveNext()": {
+          "Lines": {
+            "96": 0,
+            "98": 0,
+            "99": 0,
+            "101": 0,
+            "102": 0,
+            "104": 0,
+            "106": 0,
+            "107": 0,
+            "108": 0,
+            "110": 0,
+            "112": 0,
+            "113": 0,
+            "114": 0,
+            "116": 0
+          },
+          "Branches": [
+            {
+              "Line": 106,
+              "Offset": 398,
+              "EndOffset": 400,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 398,
+              "EndOffset": 410,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "CardsAPI.Controllers.LoginController/<ResetPassword>d__7": {
+        "System.Void CardsAPI.Controllers.LoginController/<ResetPassword>d__7::MoveNext()": {
+          "Lines": {
+            "121": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "132": 0,
+            "134": 0,
+            "136": 0,
+            "137": 0,
+            "138": 0,
+            "140": 0
+          },
+          "Branches": [
+            {
+              "Line": 125,
+              "Offset": 71,
+              "EndOffset": 73,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 125,
+              "Offset": 71,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 132,
+              "Offset": 262,
+              "EndOffset": 264,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 132,
+              "Offset": 262,
+              "EndOffset": 288,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "CardsAPI.Controllers.LoginController/<ConfirmResetPassword>d__8": {
+        "System.Void CardsAPI.Controllers.LoginController/<ConfirmResetPassword>d__8::MoveNext()": {
+          "Lines": {
+            "144": 0,
+            "146": 0,
+            "147": 0,
+            "148": 0,
+            "149": 0,
+            "150": 0,
+            "151": 0,
+            "153": 0,
+            "154": 0,
+            "155": 0,
+            "157": 0
+          },
+          "Branches": [
+            {
+              "Line": 148,
+              "Offset": 190,
+              "EndOffset": 192,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 148,
+              "Offset": 190,
+              "EndOffset": 204,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}
