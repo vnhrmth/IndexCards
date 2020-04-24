@@ -22,7 +22,8 @@ jobs:
     - name: Run tests
       working-directory: Backend/CardsAPI/CardsAPITests
       run: dotnet test --configuration Release
-    - name: ReportGenerator
-      uses: danielpalme/ReportGenerator-GitHub-Action@4.5.7
+    - name: Coverage check
+      uses: devmasx/coverage-check-action@v1.1.0
+
 
       
