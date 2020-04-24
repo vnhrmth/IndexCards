@@ -26,5 +26,6 @@ jobs:
       uses: devmasx/coverage-check-action@v1.1.0
       with:
           result_path: coverage/example.lcov
+          token: ${{secrets.GITHUB_TOKEN}}
 
       
