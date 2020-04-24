@@ -14,9 +14,10 @@ jobs:
       with:
         dotnet-version: 2.1.700
     - name: Install dependencies
+      working-directory: Backend/CardsAPI/
       run: dotnet restore
     - name: Build with dotnet
-      working-directory: Backend/CardsAPI/	
+      working-directory: Backend/CardsAPI/
       run: dotnet build --configuration Release      
     - name: Run tests
       working-directory: Backend/CardsAPI/CardsAPITests
