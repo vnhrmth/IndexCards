@@ -25,7 +25,8 @@ jobs:
     - name: Coverage check
       uses: devmasx/coverage-check-action@v1.1.0
       with:
-          result_path: coverage/example.lcov
-          token: ${{secrets.GITHUB_TOKEN}}
+              type: simplecov
+              result_path: coverage/.last_run.json
+              token: ${{secrets.GITHUB_TOKEN}}
 
       
