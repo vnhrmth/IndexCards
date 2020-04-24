@@ -24,6 +24,7 @@ jobs:
       run: dotnet build --configuration Release
       working-directory: Backend/CardsAPI
     - name: Install test dependencies
+      run: dotnet restore
       working-directory: Backend/CardsAPITests/CardsAPITests
     - name: Test
       run: dotnet test --configuration Release --verbosity normal
