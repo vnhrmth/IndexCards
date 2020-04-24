@@ -24,6 +24,7 @@ jobs:
       run: dotnet test --configuration Release
     - name: Coverage check
       uses: devmasx/coverage-check-action@v1.1.0
-      result_path: coverage/example.lcov
+      with:
+          result_path: coverage/example.lcov
 
       
