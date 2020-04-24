@@ -10,6 +10,7 @@
     <Folder Include="Repository\" />
     <Folder Include="Services\" />
     <Folder Include="Email\" />
+    <Folder Include="coverage\" />
   </ItemGroup>
 
   <ItemGroup>
