@@ -6,7 +6,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
+  
     steps:
     - uses: actions/checkout@v2.1.0
     - name: Setup .NET Core
@@ -14,7 +14,9 @@ jobs:
       with:
         dotnet-version: 2.1.700
     - name: Build with dotnet
+      working-directory: Backend/CardsAPI/	
       run: dotnet build --configuration Release      
     - name: Run tests
+      working-directory: Backend/CardsAPI/CardsAPITests
       run: dotnet test --configuration Release
 
