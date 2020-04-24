@@ -22,10 +22,8 @@ jobs:
     - name: Run tests
       working-directory: Backend/CardsAPI/CardsAPITests
       run: dotnet test --configuration Release
-    - uses: devmasx/coverage-check-action@v1.1.0
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.5.7
       with:
-        type: simplecov
-        result_path: Backend/CardsAPI/CardsAPITests/coverage.json
-        min_coverage: 80
-        token: ${{secrets.GITHUB_TOKEN}}
-
+          reports: 'Backend/CardsAPI/CardsAPITests/coverage.json'
+          targetdir: 'Backend/CardsAPI/CardsAPITests'
