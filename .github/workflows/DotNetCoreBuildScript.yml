@@ -27,3 +27,4 @@ jobs:
       with:
           reports: 'Backend/CardsAPI/CardsAPITests/coverage.json'
           targetdir: 'Backend/CardsAPI/CardsAPITests'
+          reporttypes: 'HtmlInline'
