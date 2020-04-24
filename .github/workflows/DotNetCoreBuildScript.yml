@@ -22,7 +22,7 @@ jobs:
       working-directory: Backend/CardsAPI
     - name: Install test dependencies
       run: dotnet restore
-      working-directory: Backend/CardsAPITests/CardsAPITests
+      working-directory: Backend/CardsAPI/CardsAPITests
     - name: Build
       run: dotnet build --configuration Release
       working-directory: Backend/CardsAPI
