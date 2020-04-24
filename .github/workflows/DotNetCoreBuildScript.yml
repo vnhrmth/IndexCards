@@ -26,7 +26,7 @@ jobs:
       uses: devmasx/coverage-check-action@v1.1.0
       with:
               type: simplecov
-              result_path: Backend/CardsAPI/coverage/.last_run.json
+              result_path: Backend/CardsAPI/
               token: ${{secrets.GITHUB_TOKEN}}
 
       
