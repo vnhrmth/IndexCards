@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -20,57 +20,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\nunit_random_seed.tmp" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\nunit.engine.netstandard.dll" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\Mono.Cecil.dll" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.dll" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.pdb" />
-    <None Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.g.targets" />
-    <None Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.g.props" />
-    <None Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.assets.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.FileListAbsolute.txt" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.CoreCompileInputs.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfoInputs.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.dll" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.pdb" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csprojAssemblyReference.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.CoreCompileInputs.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfoInputs.cache" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPI.pdb" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPI.dll" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.dll" />
-    <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.pdb" />
-    <None Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csprojAssemblyReference.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfoInputs.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.CoreCompileInputs.cache" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.dll" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.pdb" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csproj.CopyComplete" />
-    <None Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.csprojAssemblyReference.cache" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.runtimeconfig.json" />
-    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.runtimeconfig.dev.json" />
-    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.deps.json" />
-    <Content Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.dgspec.json" />
-    <Content Remove="CardsAPITests\obj\project.assets.json" />
-    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPITests.deps.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="CardsAPITests\UnitTest1.cs" />
-    <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.Program.cs" />
-    <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />
-    <Compile Remove="CardsAPITests\MockClasses\FakeSignInManager.cs" />
-    <Compile Remove="CardsAPITests\MockClasses\FakeUserManager.cs" />
-    <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />
-    <Compile Remove="CardsAPITests\UnitTest1.cs" />
-    <Compile Remove="CardsAPITests\UnitTest1.cs" />
-    <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />
-    <Compile Remove="CardsAPITests\LoginTests.cs" />
   </ItemGroup>
 </Project>
