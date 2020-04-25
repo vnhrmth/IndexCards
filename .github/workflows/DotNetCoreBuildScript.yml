@@ -28,3 +28,10 @@ jobs:
           reports: 'Backend/CardsAPI/CardsAPITests/coverage.json'
           targetdir: 'Backend/CardsAPI/CardsAPITests'
           reporttypes: 'HtmlInline'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: CoverageReports
+        # Directory containing files to upload
+        path: Backend/CardsAPI/CardsAPITests
