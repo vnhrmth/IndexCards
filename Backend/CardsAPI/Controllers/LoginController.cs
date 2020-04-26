@@ -92,24 +92,24 @@ namespace CardsAPI.Controllers
 
         [HttpPost("ForgotPassword")]
         [AllowAnonymous]
-        public async Task<ActionResult<bool>> ForgetPassword(string emailId)
+        public async Task<bool> ForgetPassword(string emailId)
         {
             try
             {
                 var identityUser = await _userManager.FindByEmailAsync(emailId);
+                if (null == identityUser)
+                {
+                    return false;
+                }
 
                 var token = _userManager.GeneratePasswordResetTokenAsync(identityUser);
                 string url = Url.Link("Reset", new { Action = "ResetPassword", Controller = "Login", emailId, token.Result });
 
                 await _emailSender.SendEmailAsync(emailId, "Reset Password", url);
 
-                if (null == identityUser)
-                {
-                    return false;
-                }
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
                 return false;
             }
@@ -133,7 +133,7 @@ namespace CardsAPI.Controllers
                 
                 return result;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -150,7 +150,7 @@ namespace CardsAPI.Controllers
                 var result = await _userManager.ResetPasswordAsync(user, decodedToken, resetPasswordModel.Password);
                 return result.Succeeded;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }
