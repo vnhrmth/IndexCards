@@ -9,5 +9,4 @@ namespace CardsAPI.Email
         string Username { get; }
         string Password { get; }
     }
-
 }

@@ -94,7 +94,7 @@ namespace CardsAPITests.Controllers
         }
 
         [Test]
-        public void When_login_method_is_called_with_credentials_then_return_Ok_status_code()
+        public void When_signin_method_is_called_with_credentials_then_return_Ok_status_code()
         {
             // Arrange
             LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
@@ -129,7 +129,7 @@ namespace CardsAPITests.Controllers
         [TestCase("user@example.com", "")]
         [TestCase("", "123")]
         [TestCase("user@example", "123")]
-        public void When_login_method_is_called_with_wrong_format_then_return_bad_request_status_code(string emailId, string password)
+        public void When_signin_method_is_called_with_wrong_format_then_return_bad_request_status_code(string emailId, string password)
         {
             // Arrange
             LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();

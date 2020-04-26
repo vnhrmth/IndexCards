@@ -14,7 +14,7 @@ namespace CardsAPI.Email
             _emailConfiguration = emailConfiguration;
 
         }
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string email, string subject, string message)
         {
             try
             {
@@ -31,12 +31,13 @@ namespace CardsAPI.Email
                     client.EnableSsl = true;
                     client.Send(mail);
                     mail.Dispose();
-                    
+                    return Task.CompletedTask;
                 }
             }
             catch(Exception ex)
             {
                 //Handle failures
+                return Task.FromException(ex);
             }
         }
 
