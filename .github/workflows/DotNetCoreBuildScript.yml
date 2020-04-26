@@ -35,3 +35,10 @@ jobs:
         name: CoverageReports
         # Directory containing files to upload
         path: Backend/CardsAPI/CardsAPITests
+    - name: OpenCover Badge Generator
+      uses: danpetitt/open-cover-badge-generator-action@v1.0.9
+      with:
+        # Path to the open cover xml file
+        path-to-opencover-xml: 'Backend/CardsAPI/CardsAPITests/coverage.opencover.xml'
+        # Path where the line and branch coverage svgs would be saved; these will be saved with the names coverage-badge-line.svg and coverage-badge-branch.svg; if not specified the files will be saved into the project root
+        path-to-badges: 'Backend/CardsAPI/CardsAPITests'
