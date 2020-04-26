@@ -411,14 +411,14 @@
       "CardsAPI.Controllers.LoginController": {
         "System.Void CardsAPI.Controllers.LoginController::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.AspNetCore.Identity.SignInManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.AspNetCore.Identity.UI.Services.IEmailSender)": {
           "Lines": {
-            "21": 10,
-            "22": 10,
-            "23": 10,
-            "24": 10,
-            "25": 10,
-            "26": 10,
-            "27": 10,
-            "28": 10
+            "21": 17,
+            "22": 17,
+            "23": 17,
+            "24": 17,
+            "25": 17,
+            "26": 17,
+            "27": 17,
+            "28": 17
           },
           "Branches": []
         }
@@ -599,37 +599,37 @@
       "CardsAPI.Controllers.LoginController/<ForgetPassword>d__6": {
         "System.Void CardsAPI.Controllers.LoginController/<ForgetPassword>d__6::MoveNext()": {
           "Lines": {
-            "96": 0,
-            "98": 0,
-            "99": 0,
-            "101": 0,
-            "102": 0,
-            "104": 0,
-            "106": 0,
-            "107": 0,
-            "108": 0,
-            "110": 0,
-            "112": 0,
-            "113": 0,
-            "114": 0,
-            "116": 0
+            "96": 3,
+            "98": 3,
+            "99": 3,
+            "100": 3,
+            "101": 1,
+            "102": 1,
+            "105": 2,
+            "106": 2,
+            "108": 2,
+            "110": 1,
+            "112": 1,
+            "113": 1,
+            "114": 1,
+            "116": 3
           },
           "Branches": [
             {
-              "Line": 106,
-              "Offset": 398,
-              "EndOffset": 400,
+              "Line": 100,
+              "Offset": 185,
+              "EndOffset": 187,
               "Path": 0,
               "Ordinal": 0,
-              "Hits": 0
+              "Hits": 1
             },
             {
-              "Line": 106,
-              "Offset": 398,
-              "EndOffset": 410,
+              "Line": 100,
+              "Offset": 185,
+              "EndOffset": 195,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 0
+              "Hits": 2
             }
           ]
         }
@@ -637,19 +637,19 @@
       "CardsAPI.Controllers.LoginController/<ResetPassword>d__7": {
         "System.Void CardsAPI.Controllers.LoginController/<ResetPassword>d__7::MoveNext()": {
           "Lines": {
-            "121": 0,
-            "123": 0,
-            "124": 0,
-            "125": 0,
-            "126": 0,
-            "127": 0,
-            "128": 0,
-            "132": 0,
-            "134": 0,
-            "136": 0,
-            "137": 0,
-            "138": 0,
-            "140": 0
+            "121": 4,
+            "123": 4,
+            "124": 4,
+            "125": 5,
+            "126": 3,
+            "127": 3,
+            "128": 3,
+            "132": 3,
+            "134": 1,
+            "136": 1,
+            "137": 1,
+            "138": 1,
+            "140": 4
           },
           "Branches": [
             {
@@ -658,7 +658,7 @@
               "EndOffset": 73,
               "Path": 0,
               "Ordinal": 0,
-              "Hits": 0
+              "Hits": 1
             },
             {
               "Line": 125,
@@ -666,7 +666,7 @@
               "EndOffset": 85,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 0
+              "Hits": 3
             },
             {
               "Line": 132,
@@ -674,7 +674,7 @@
               "EndOffset": 264,
               "Path": 0,
               "Ordinal": 2,
-              "Hits": 0
+              "Hits": 1
             },
             {
               "Line": 132,
@@ -682,7 +682,7 @@
               "EndOffset": 288,
               "Path": 1,
               "Ordinal": 3,
-              "Hits": 0
+              "Hits": 1
             }
           ]
         }
