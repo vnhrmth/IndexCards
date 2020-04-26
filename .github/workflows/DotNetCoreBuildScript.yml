@@ -1,0 +1,37 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - uses: actions/checkout@v2.1.0
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.1.700
+    - name: Install dependencies
+      working-directory: Backend/CardsAPI/
+      run: dotnet restore
+    - name: Build with dotnet
+      working-directory: Backend/CardsAPI/
+      run: dotnet build --configuration Release      
+    - name: Run tests
+      working-directory: Backend/CardsAPI/CardsAPITests
+      run: dotnet test --configuration Release
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@4.5.7
+      with:
+          reports: 'Backend/CardsAPI/CardsAPITests/coverage.json'
+          targetdir: 'Backend/CardsAPI/CardsAPITests'
+          reporttypes: 'HtmlInline'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: CoverageReports
+        # Directory containing files to upload
+        path: Backend/CardsAPI/CardsAPITests
