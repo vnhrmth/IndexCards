@@ -98,5 +98,7 @@
     <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />
     <Compile Remove="CardsAPITests\Controllers\LoginTests.cs" />
     <Compile Remove="CardsAPITests\EmailTests\EmailConfigurationTest.cs" />
+    <Compile Remove="CardsAPITests\EmailTests\EmailConfigurationTest.cs" />
+    <Compile Remove="CardsAPITests\ModelsTest\UserTest.cs" />
   </ItemGroup>
 </Project>

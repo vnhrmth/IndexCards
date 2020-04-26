@@ -28,5 +28,6 @@
     <Folder Include="MockClasses\" />
     <Folder Include="Controllers\" />
     <Folder Include="EmailTests\" />
+    <Folder Include="ModelsTest\" />
   </ItemGroup>
 </Project>
