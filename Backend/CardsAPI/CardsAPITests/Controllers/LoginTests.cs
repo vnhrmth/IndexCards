@@ -126,10 +126,10 @@ namespace CardsAPITests.Controllers
 
         [Test]
         [TestCase("", "")]
-        [TestCase("user@example.com","")]
+        [TestCase("user@example.com", "")]
         [TestCase("", "123")]
-        [TestCase("user@example","123")]
-        public void When_login_method_is_called_with_wrong_format_then_return_bad_request_status_code(string emailId,string password)
+        [TestCase("user@example", "123")]
+        public void When_login_method_is_called_with_wrong_format_then_return_bad_request_status_code(string emailId, string password)
         {
             // Arrange
             LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
@@ -147,6 +147,160 @@ namespace CardsAPITests.Controllers
             //// Assert
             Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
+
+        [Test]
+        public void When_forgetpassword_method_is_called_with_credentials_then_return_true()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.GeneratePasswordResetTokenAsync(It.IsAny<IdentityUser>())).
+            Returns(Task.FromResult("Token"));
+
+            Mock<IUrlHelper> urlHelper = new Mock<IUrlHelper>();
+            urlHelper.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<object>())).Returns("http://localhost");
+
+            _loginController.Url = urlHelper.Object;
+
+            _emailSender.Setup(x =>
+            x.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).
+            Returns(Task.FromResult(true));
+
+            // Act
+            var response = _loginController.ForgetPassword("user@example.com");
+
+            // Assert
+            Assert.IsTrue(response.Result);
+
+        }
+
+        [Test]
+        public void When_forgetpassword_method_is_called_with_unregistered_email_then_return_false()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult((IdentityUser)null));
+
+            // Act
+            var response = _loginController.ForgetPassword("user@example.com");
+
+            // Assert
+            Assert.IsFalse(response.Result);
+
+        }
+
+        [Test]
+        public void When_forgetpassword_method_is_called_with_send_email_throwing_exception_then_return_false()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.GeneratePasswordResetTokenAsync(It.IsAny<IdentityUser>())).
+            Returns(Task.FromResult("Token"));
+
+            Mock<IUrlHelper> urlHelper = new Mock<IUrlHelper>();
+            urlHelper.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<object>())).Returns("http://localhost");
+
+            _loginController.Url = urlHelper.Object;
+
+            _emailSender.Setup(x =>
+            x.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).
+            Throws(new Exception());
+
+            // Act
+            var response = _loginController.ForgetPassword("user@example.com");
+
+            // Assert
+            Assert.False(response.Result);
+
+        }
+
+        [Test]
+        public void When_resetpassword_method_is_called_with_email_and_token_then_return_redirect_result()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.VerifyUserTokenAsync(It.IsAny<IdentityUser>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).
+            Returns(Task.FromResult(true));
+
+            // Act
+            var response = _loginController.ResetPassword("user@example.com", "token");
+
+            // Assert
+            Assert.IsNotNull(response.Result);
+
+        }
+
+        [Test]
+        public void When_resetpassword_method_is_called_with_unregistered_email_and_token_then_return_false()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult((IdentityUser)null));
+
+            // Act
+            var response = _loginController.ResetPassword("user@example.com", "token");
+
+            // Assert
+            Assert.IsFalse(response.Result.Value);
+        }
+
+        [Test]
+        public void When_resetpassword_method_is_called_with_email_and_invalid_token_then_return_false()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.VerifyUserTokenAsync(It.IsAny<IdentityUser>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>())).
+            Returns(Task.FromResult(false));
+
+
+            // Act
+            var response = _loginController.ResetPassword("user@example.com", "token");
+
+            // Assert
+            Assert.IsFalse(response.Result.Value);
+        }
+
+        [Test]
+        public void When_resetpassword_method_is_called_with_exception_throwing_method_then_return_false()
+        {
+            // Arrange
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.VerifyUserTokenAsync(It.IsAny<IdentityUser>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>())).
+            Throws(new Exception());
+
+            // Act
+            var response = _loginController.ResetPassword("user@example.com", "token");
+
+            // Assert
+            Assert.IsFalse(response.Result.Value);
+
+        }
     }
 }
-
