@@ -13,7 +13,7 @@ using Moq;
 using NUnit.Framework;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
-namespace Tests
+namespace CardsAPITests.Controllers
 {
     public class LoginTests
     {
