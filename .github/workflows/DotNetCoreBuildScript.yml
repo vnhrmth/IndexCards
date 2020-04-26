@@ -43,4 +43,4 @@ jobs:
         # Path where the line and branch coverage svgs would be saved; these will be saved with the names coverage-badge-line.svg and coverage-badge-branch.svg; if not specified the files will be saved into the project root
         path-to-badges: 'Backend/CardsAPI/CardsAPITests'
         minimum-coverage: 80
-        repo-token: ${{ b3f3ba4916aceb0bdc2d58c306fad7cea0a9ba92 }}
+        repo-token: ${{ secrets.b3f3ba4916aceb0bdc2d58c306fad7cea0a9ba92 }}
