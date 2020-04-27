@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using CardsAPI.Controllers;
 using CardsAPI.Models;
 using CardsAPITests.MockClasses;
@@ -145,6 +146,59 @@ namespace CardsAPITests.Controllers
             ObjectResult objectResult = response.Result as ObjectResult;
 
             //// Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void When_signin_method_is_called_with_unregistered_method_then_return_bad_request()
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = "user@example.com";
+            loginUserUpsertion.Password = "123";
+            
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult((IdentityUser)null));
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            // Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void When_signin_method_is_called_with_exception_throwing_method_then_return_bad_request()
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = "user@example.com";
+            loginUserUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _signInManagerMock.Setup(x =>
+            x.CheckPasswordSignInAsync(It.IsAny<IdentityUser>(),
+                                       It.IsAny<string>(),
+                                       It.IsAny<bool>())).
+            Returns(Task.FromResult(SignInResult.Success));
+
+            _signInManagerMock.Setup(x =>
+            x.PasswordSignInAsync(It.IsAny<IdentityUser>(),
+                                  It.IsAny<string>(),
+                                  It.IsAny<bool>(),
+                                  It.IsAny<bool>())).
+            Throws(new Exception());
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            // Assert
             Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
 
@@ -301,6 +355,111 @@ namespace CardsAPITests.Controllers
             // Assert
             Assert.IsFalse(response.Result.Value);
 
+        }
+
+        [Test]
+        public void When_confirm_resetpassword_method_is_called_with_registered_email__and_valid_token_then_return_true()
+        {
+            // Arrange
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel();
+            resetPasswordModel.Email = "user@example.com";
+            resetPasswordModel.ConfirmPassword = "123";
+            resetPasswordModel.Password = "123";
+            resetPasswordModel.Token = "token";
+            
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.ResetPasswordAsync(It.IsAny<IdentityUser>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>())).
+            Returns(Task.FromResult(IdentityResult.Success));
+
+            // Act
+            var response = _loginController.ConfirmResetPassword(resetPasswordModel);
+
+            // Assert
+            Assert.IsTrue(response.Result);
+        }
+
+        [Test]
+        public void When_confirm_resetpassword_method_is_called_with_unregistered_email_then_return_false()
+        {
+            // Arrange
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel();
+            resetPasswordModel.Email = "user@example.com";
+            resetPasswordModel.ConfirmPassword = "123";
+            resetPasswordModel.Password = "123";
+            resetPasswordModel.Token = "token";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult((IdentityUser)null));
+
+            // Act
+            var response = _loginController.ConfirmResetPassword(resetPasswordModel);
+
+            // Assert
+            Assert.IsFalse(response.Result);
+        }
+
+        [Test]
+        public void When_confirm_resetpassword_method_is_called_with_registered_email_and_an_exception_throwing_method_then_return_true()
+        {
+            // Arrange
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel();
+            resetPasswordModel.Email = "user@example.com";
+            resetPasswordModel.ConfirmPassword = "123";
+            resetPasswordModel.Password = "123";
+            resetPasswordModel.Token = "token";
+
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.ResetPasswordAsync(It.IsAny<IdentityUser>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>())).
+            Throws(new Exception());
+
+            // Act
+            var response = _loginController.ConfirmResetPassword(resetPasswordModel);
+
+            // Assert
+            Assert.IsFalse(response.Result);
+
+        }
+
+        [Test]
+        public void When_confirm_resetpassword_method_is_called_with_registered_email_and_fails_then_return_true()
+        {
+            // Arrange
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel();
+            resetPasswordModel.Email = "user@example.com";
+            resetPasswordModel.ConfirmPassword = "123";
+            resetPasswordModel.Password = "123";
+            resetPasswordModel.Token = "token";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult(new IdentityUser()));
+
+            _userManagerMock.Setup(x =>
+            x.ResetPasswordAsync(It.IsAny<IdentityUser>(),
+                                   It.IsAny<string>(),
+                                   It.IsAny<string>())).
+            Returns(Task.FromResult(IdentityResult.Failed(new IdentityError())));
+
+            // Act
+            var response = _loginController.ConfirmResetPassword(resetPasswordModel);
+
+            // Assert
+            Assert.IsFalse(response.Result);
         }
     }
 }

@@ -66,7 +66,7 @@ namespace CardsAPI.Controllers
                 var identityUser = await _userManager.FindByEmailAsync(user.MailId);
                 if (null == identityUser)
                 {
-                    throw new HttpRequestException("No such user found");
+                    throw new Exception("No such user found");
                 }
                 var checkPasswordResult = await _signInManager.CheckPasswordSignInAsync(identityUser,user.Password,true);
                 
@@ -82,7 +82,7 @@ namespace CardsAPI.Controllers
                     }
                 }                
 
-                throw new HttpRequestException("Incorrect Username/Password");
+                throw new Exception("Incorrect Username/Password");
             }
             catch (Exception ex)
             {
@@ -140,7 +140,7 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("ConfirmResetPassword")]
-        public async Task<ActionResult<bool>> ConfirmResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
+        public async Task<bool> ConfirmResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
         {
             try
             {
@@ -148,7 +148,13 @@ namespace CardsAPI.Controllers
                 if (user == null) return false;
                 var decodedToken = HttpUtility.UrlDecode(resetPasswordModel.Token);
                 var result = await _userManager.ResetPasswordAsync(user, decodedToken, resetPasswordModel.Password);
-                return result.Succeeded;
+
+                if(result.Succeeded)
+                {
+                    return true;
+                }
+
+                return false;
             }
             catch
             {
