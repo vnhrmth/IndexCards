@@ -66,6 +66,10 @@ namespace CardsAPITests.Controllers
             userUpsertion.MailId = mailId;
             userUpsertion.Password = password;
 
+            _userManagerMock.Setup(x =>
+            x.CreateAsync(It.IsAny<IdentityUser>(), userUpsertion.Password)).
+            Returns(Task.FromResult(IdentityResult.Failed(new IdentityError())));
+
             // Act
             var response = _loginController.Signup(userUpsertion);
             var objectResult = response.Result as ObjectResult;
@@ -92,6 +96,26 @@ namespace CardsAPITests.Controllers
 
             //// Assert
             Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void When_signup_method_is_called_with_create_async_user_method_returning_null_then_throw_server_error()
+        {
+            UserUpsertion userUpsertion = new UserUpsertion();
+            userUpsertion.Name = "V";
+            userUpsertion.MailId = "v@example.com";
+            userUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.CreateAsync(It.IsAny<IdentityUser>(),
+            "123")).Returns(Task.FromResult((IdentityResult)null));
+
+            // Act
+            var response = _loginController.Signup(userUpsertion);
+            var objectResult = response.Result as ObjectResult;
+
+            //// Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.InternalServerError);
         }
 
         [Test]
@@ -201,6 +225,47 @@ namespace CardsAPITests.Controllers
             // Assert
             Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
         }
+
+        [Test]
+        public void When_signin_method_is_called_with_find_by_email_method_returning_null_then_return_bad_request_error()
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = "user@example.com";
+            loginUserUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Returns(Task.FromResult((IdentityUser)null));
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            // Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void When_signin_method_with_any_other_exception_then_return_internal_server_error()
+        {
+            // Arrange
+            LoginUserUpsertion loginUserUpsertion = new LoginUserUpsertion();
+            loginUserUpsertion.MailId = "user@example.com";
+            loginUserUpsertion.Password = "123";
+
+            _userManagerMock.Setup(x =>
+            x.FindByEmailAsync(It.IsAny<string>())).
+            Throws(new Exception());
+
+            // Act
+            var response = _loginController.Signin(loginUserUpsertion);
+            ObjectResult objectResult = response.Result as ObjectResult;
+
+            // Assert
+            Assert.AreEqual(objectResult.StatusCode, (int)HttpStatusCode.InternalServerError);
+        }
+
 
         [Test]
         public void When_forgetpassword_method_is_called_with_credentials_then_return_true()

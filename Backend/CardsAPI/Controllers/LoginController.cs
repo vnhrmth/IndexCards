@@ -8,6 +8,7 @@ using System.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Net.Http;
 using System.Net;
+using CardsAPI.ExceptionHandling;
 
 namespace CardsAPI.Controllers
 {
@@ -28,7 +29,7 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("Signup")]
-        public async Task<object> Signup([FromBody]UserUpsertion user)
+        public async Task<IActionResult> Signup([FromBody]UserUpsertion user)
         {
             try
             {
@@ -44,16 +45,21 @@ namespace CardsAPI.Controllers
                     httpResponseMessage.StatusCode = HttpStatusCode.Created;
                     return Created(string.Empty, httpResponseMessage);
                 }
+
                 var errorStr = "";
                 foreach(IdentityError error in result.Errors)
                 {
                     errorStr += error.Description;
                 }
-                throw new HttpRequestException(errorStr);
+                throw new LoginException(errorStr);
             }
+            catch(LoginException ex) 
+	        {
+                return BadRequest(ex.Message);
+		    }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -66,7 +72,7 @@ namespace CardsAPI.Controllers
                 var identityUser = await _userManager.FindByEmailAsync(user.MailId);
                 if (null == identityUser)
                 {
-                    throw new Exception("No such user found");
+                    throw new LoginException("No such user found");
                 }
                 var checkPasswordResult = await _signInManager.CheckPasswordSignInAsync(identityUser,user.Password,true);
                 
@@ -80,13 +86,16 @@ namespace CardsAPI.Controllers
                         usr.Name = usr.Name;
                         return Ok(usr);
                     }
-                }                
-
-                throw new Exception("Incorrect Username/Password");
+                }
+                throw new LoginException("Incorrect Username / Password");
+            }
+            catch(LoginException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500,ex.Message);
             }
         }
 

@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -22,12 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-         <ProjectReference Include="..\CardsAPI.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="MockClasses\" />
     <Folder Include="Controllers\" />
     <Folder Include="EmailTests\" />
     <Folder Include="ModelsTest\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CardsAPI.csproj" />
   </ItemGroup>
 </Project>
