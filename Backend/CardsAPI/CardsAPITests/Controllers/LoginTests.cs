@@ -1,9 +1,6 @@
 using System;
 using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using CardsAPI.Controllers;
 using CardsAPI.Models;
 using CardsAPITests.MockClasses;
@@ -309,7 +306,6 @@ namespace CardsAPITests.Controllers
 
             // Assert
             Assert.IsFalse(response.Result);
-
         }
 
         [Test]
@@ -525,6 +521,17 @@ namespace CardsAPITests.Controllers
 
             // Assert
             Assert.IsFalse(response.Result);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            _userManagerMock = null;
+            _signInManagerMock = null;
+            _emailSender = null;
+            _loginController = null;
+
         }
     }
 }
