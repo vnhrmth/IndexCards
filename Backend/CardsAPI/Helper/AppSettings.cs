@@ -1,4 +1,4 @@
-﻿namespace CardsAPI.CardsAPITests.Helpers
+﻿namespace CardsAPI.Helper
 {
     public class AppSettings
     {

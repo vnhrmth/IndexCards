@@ -11,7 +11,7 @@
     <Folder Include="Services\" />
     <Folder Include="Email\" />
     <Folder Include="Exception Handling\" />
-    <Folder Include="CardsAPITests\Helpers\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
 
   <ItemGroup>

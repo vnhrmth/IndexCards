@@ -12,9 +12,9 @@ using CardsAPI.ExceptionHandling;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Options;
-using CardsAPI.CardsAPITests.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using CardsAPI.Helper;
 
 namespace CardsAPI.Controllers
 {
@@ -24,13 +24,13 @@ namespace CardsAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly AppSettings _appSettings;
+        private readonly IOptions<AppSettings> _appSettings;
 
         public LoginController(UserManager<IdentityUser> userManager,
                                SignInManager<IdentityUser> signInManager,
                                IEmailSender emailSender, IOptions<AppSettings> appSettings)
         {
-            _appSettings = appSettings.Value;
+            _appSettings = appSettings;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -115,7 +115,7 @@ namespace CardsAPI.Controllers
         private User Authenticate(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_appSettings.Value.Secret);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

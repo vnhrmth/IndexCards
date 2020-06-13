@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using CardsAPI.CardsAPITests.Helpers;
 using CardsAPI.Controllers;
 using CardsAPI.Models;
 using CardsAPITests.MockClasses;
@@ -20,7 +19,7 @@ namespace CardsAPITests.Controllers
         private Mock<FakeSignInManager> _signInManagerMock;
         private Mock<IEmailSender> _emailSender;
         private LoginController _loginController;
-        //private AppSettings _appSettings;
+        private Mock<FakeAppSettings> _appSettings;
 
         [SetUp]
         public void Setup()
@@ -28,8 +27,8 @@ namespace CardsAPITests.Controllers
             _userManagerMock = new Mock<FakeUserManager>();
             _signInManagerMock = new Mock<FakeSignInManager>();
             _emailSender = new Mock<IEmailSender>();
-            //_appSettings = new Mock<AppSettings>();
-            _loginController = new LoginController(_userManagerMock.Object, _signInManagerMock.Object, _emailSender.Object, null);
+            _appSettings = new Mock<FakeAppSettings>();
+            _loginController = new LoginController(_userManagerMock.Object, _signInManagerMock.Object, _emailSender.Object, _appSettings.Object);
         }
 
         [Test]
