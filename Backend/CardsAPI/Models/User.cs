@@ -12,5 +12,7 @@ namespace CardsAPI.Models
         [Required(ErrorMessage = "Mail Id is required")]
         [EmailAddress]
         public string MailId { get; set; }
+
+        public string Token { get; set; }
     }
 }

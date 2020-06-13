@@ -9,6 +9,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Net.Http;
 using System.Net;
 using CardsAPI.ExceptionHandling;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using CardsAPI.Helper;
 
 namespace CardsAPI.Controllers
 {
@@ -18,11 +24,13 @@ namespace CardsAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IOptions<AppSettings> _appSettings;
 
         public LoginController(UserManager<IdentityUser> userManager,
                                SignInManager<IdentityUser> signInManager,
-                               IEmailSender emailSender)
+                               IEmailSender emailSender, IOptions<AppSettings> appSettings)
         {
+            _appSettings = appSettings;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -84,7 +92,12 @@ namespace CardsAPI.Controllers
                         User usr = new User();
                         usr.MailId = user.MailId;
                         usr.Name = usr.Name;
-                        return Ok(usr);
+
+                        if (null != Authenticate(usr))
+                        {
+                            return Ok(usr);
+                        }
+                            
                     }
                 }
                 throw new LoginException("Incorrect Username / Password");
@@ -97,6 +110,27 @@ namespace CardsAPI.Controllers
             {
                 return StatusCode(500,ex.Message);
             }
+        }
+
+        private User Authenticate(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Value.Secret);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.MailId)
+                }),
+                Expires = DateTime.UtcNow.AddHours(8),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Token = tokenHandler.WriteToken(token);
+            user.Password = null;
+            return user;
         }
 
         [HttpPost("ForgotPassword")]

@@ -11,6 +11,7 @@
     <Folder Include="Services\" />
     <Folder Include="Email\" />
     <Folder Include="Exception Handling\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,9 @@
     <Content Remove="CardsAPITests\obj\project.assets.json" />
     <Content Remove="CardsAPITests\obj\project.assets.json" />
     <Content Remove="CardsAPITests\coverage.json" />
+    <Content Remove="CardsAPITests\obj\CardsAPITests.csproj.nuget.dgspec.json" />
+    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\Properties\launchSettings.json" />
+    <Content Remove="CardsAPITests\bin\Debug\netcoreapp2.1\appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="CardsAPITests\bin\Debug\netcoreapp2.1\CardsAPI.dll" />
@@ -91,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="CardsAPITests\LoginTests.cs" />
+    <Compile Remove="CardsAPITests\HomeControllerTests.cs" />    
     <Compile Remove="CardsAPITests\MockClasses\FakeSignInManager.cs" />
     <Compile Remove="CardsAPITests\MockClasses\FakeUserManager.cs" />
     <Compile Remove="CardsAPITests\obj\Debug\netcoreapp2.1\CardsAPITests.AssemblyInfo.cs" />

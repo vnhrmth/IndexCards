@@ -1,9 +1,6 @@
 using System;
 using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using CardsAPI.Controllers;
 using CardsAPI.Models;
 using CardsAPITests.MockClasses;
@@ -22,6 +19,7 @@ namespace CardsAPITests.Controllers
         private Mock<FakeSignInManager> _signInManagerMock;
         private Mock<IEmailSender> _emailSender;
         private LoginController _loginController;
+        private Mock<FakeAppSettings> _appSettings;
 
         [SetUp]
         public void Setup()
@@ -29,7 +27,8 @@ namespace CardsAPITests.Controllers
             _userManagerMock = new Mock<FakeUserManager>();
             _signInManagerMock = new Mock<FakeSignInManager>();
             _emailSender = new Mock<IEmailSender>();
-            _loginController = new LoginController(_userManagerMock.Object, _signInManagerMock.Object, _emailSender.Object);
+            _appSettings = new Mock<FakeAppSettings>();
+            _loginController = new LoginController(_userManagerMock.Object, _signInManagerMock.Object, _emailSender.Object, _appSettings.Object);
         }
 
         [Test]
@@ -309,7 +308,6 @@ namespace CardsAPITests.Controllers
 
             // Assert
             Assert.IsFalse(response.Result);
-
         }
 
         [Test]
@@ -525,6 +523,17 @@ namespace CardsAPITests.Controllers
 
             // Assert
             Assert.IsFalse(response.Result);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+            _userManagerMock = null;
+            _signInManagerMock = null;
+            _emailSender = null;
+            _loginController = null;
+
         }
     }
 }
