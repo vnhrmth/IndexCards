@@ -11,7 +11,7 @@ namespace CardsAPI.Models
         {
         }
 
-        public DbSet<DbUser> Users { get; set; }
+        public DbSet<DbUser> NotesUsers { get; set; }
         public DbSet<DbTopic> Topics { get; set; }
         public DbSet<DbCard> Cards { get; set; }
     }
