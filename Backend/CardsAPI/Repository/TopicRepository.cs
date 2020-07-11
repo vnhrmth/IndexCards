@@ -13,26 +13,24 @@ namespace CardsAPI.Repository
     {
         Task<bool> AddTopic(TopicUpsertion topicUpsertion, string currentLoggedUser);
         Task<List<Topic>> GetTopics(string emailId);
-        Task<bool> DeleteTopic(TopicUpsertion topicUpsertion, string loggedUser);
+        Task<bool> DeleteTopic(string topicName, string loggedUser);
     }
 
     public class TopicRepository : ITopicRepository
     {
         private readonly UserDbContext _userDbContext;
-        private readonly UserManager<IdentityUser> _userManager;
         
         public TopicRepository(UserManager<IdentityUser> userManager,
                                 UserDbContext userDbContext)
         {
-            _userManager = userManager;
             _userDbContext = userDbContext;
         }
 
-        public async Task<bool> DeleteTopic(TopicUpsertion topicUpsertion, string loggedUser)
+        public async Task<bool> DeleteTopic(string topicName, string loggedUser)
         {
             try
             {
-                var selectedTopic = _userDbContext.Topics.Where(x => x.Name == topicUpsertion.Name).SingleOrDefault();
+                var selectedTopic = _userDbContext.Topics.Where(x => x.Name == topicName).SingleOrDefault();
 
                 if (selectedTopic == null) return false;
 
@@ -51,10 +49,9 @@ namespace CardsAPI.Repository
         {
             try
             {
-                
                 var currentUser = _userDbContext.NotesUsers.Where(z => z.Email == loggedUser)
                         .Include(x => x.Topics).SingleOrDefault();
-                //var currentUser = _userDbContext.NotesUsers.Where(x => x.Email == loggedUser).Single() as DbUser;
+
                 if (currentUser.Topics == null)
                 {
                     currentUser.Topics = new List<DbTopic>();

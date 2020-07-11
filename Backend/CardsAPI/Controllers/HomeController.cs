@@ -23,8 +23,8 @@ namespace CardsAPI.Controllers
             _topicServices = topicServices;
         }
 
-        [HttpPost("DeleteTopic")]
-        public async Task<IActionResult> DeleteTopic([FromBody] TopicUpsertion topicUpsertion)
+        [HttpPost("{DeleteTopic}")]
+        public async Task<IActionResult> DeleteTopic([FromQuery] string topicName)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace CardsAPI.Controllers
                 if (isAuthenticated)
                 {
                     var currentLoggedUser = User.Identity.Name;
-                    return Ok(await _topicServices.DeleteTopic(topicUpsertion, currentLoggedUser));
+                    return Ok(await _topicServices.DeleteTopic(topicName, currentLoggedUser));
                 }
                 else
                 {

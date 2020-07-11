@@ -8,7 +8,7 @@ namespace CardsAPI.Services
 {
     public interface ITopicServices
     {
-        Task<bool> DeleteTopic(TopicUpsertion addDeviceUpsertion, string currentLoggedUser);
+        Task<bool> DeleteTopic(string topicName, string currentLoggedUser);
         Task<bool> AddTopic(TopicUpsertion addDeviceUpsertion, string currentLoggedUser);
         Task<IList<Topic>> GetTopics(string emailId);
     }
@@ -21,9 +21,9 @@ namespace CardsAPI.Services
             _topicRepository = topicRepository;
         }
 
-        public async Task<bool> DeleteTopic(TopicUpsertion topicUpsertion, string currentLoggedUser)
+        public async Task<bool> DeleteTopic(string topicName, string currentLoggedUser)
         {
-            return await _topicRepository.DeleteTopic(topicUpsertion, currentLoggedUser);
+            return await _topicRepository.DeleteTopic(topicName, currentLoggedUser);
         }
 
         public async Task<bool> AddTopic(TopicUpsertion topicUpsertion, string currentLoggedUser)
