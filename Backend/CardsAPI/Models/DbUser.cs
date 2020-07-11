@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace CardsAPI.Models
 {
-    public class DbUser
+    public class DbUser : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string MailId { get; set; }

@@ -41,7 +41,7 @@ namespace CardsAPI.Controllers
         {
             try
             {
-                var loginUser = new IdentityUser
+                var loginUser = new DbUser
                 {
                     UserName = user.MailId,
                     Email = user.MailId,
@@ -83,7 +83,6 @@ namespace CardsAPI.Controllers
                     throw new LoginException("No such user found");
                 }
                 var checkPasswordResult = await _signInManager.CheckPasswordSignInAsync(identityUser,user.Password,true);
-                
                 if (null != checkPasswordResult && checkPasswordResult.Succeeded)
                 {
                     var result = await _signInManager.PasswordSignInAsync(user.MailId, user.Password, true, false);
@@ -97,7 +96,7 @@ namespace CardsAPI.Controllers
                         {
                             return Ok(usr);
                         }
-                            
+
                     }
                 }
                 throw new LoginException("Incorrect Username / Password");
