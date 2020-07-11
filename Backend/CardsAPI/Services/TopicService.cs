@@ -11,6 +11,7 @@ namespace CardsAPI.Services
         Task<bool> DeleteTopic(string topicName, string currentLoggedUser);
         Task<bool> AddTopic(TopicUpsertion addDeviceUpsertion, string currentLoggedUser);
         Task<IList<Topic>> GetTopics(string emailId);
+        Task<bool> UpdateTopic(TopicUpsertion topicUpsertion, string currentLoggedUser);
     }
 
     public class TopicService : ITopicServices
@@ -36,6 +37,10 @@ namespace CardsAPI.Services
             return await _topicRepository.GetTopics(emailId);
         }
 
-        
+        public async Task<bool> UpdateTopic(TopicUpsertion topicUpsertion, string currentLoggedUser)
+        {
+            return await _topicRepository.UpdateTopic(topicUpsertion, currentLoggedUser);
+        }
+
     }
 }

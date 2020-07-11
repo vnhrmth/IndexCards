@@ -91,5 +91,28 @@ namespace CardsAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPost("UpdateTopic")]
+        public async Task<IActionResult> UpdateTopic([FromBody] TopicUpsertion topicUpsertion)
+        {
+            try
+            {
+                var isAuthenticated = User.Identity.IsAuthenticated;
+
+                if (isAuthenticated)
+                {
+                    var currentLoggedUser = User.Identity.Name;
+                    return Ok(await _topicServices.UpdateTopic(topicUpsertion, currentLoggedUser));
+                }
+                else
+                {
+                    return BadRequest("Please Login!!");
+                }
+            }
+            catch (LoginException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

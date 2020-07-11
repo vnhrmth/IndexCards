@@ -14,6 +14,7 @@ namespace CardsAPI.Repository
         Task<bool> AddTopic(TopicUpsertion topicUpsertion, string currentLoggedUser);
         Task<List<Topic>> GetTopics(string emailId);
         Task<bool> DeleteTopic(string topicName, string loggedUser);
+        Task<bool> UpdateTopic(TopicUpsertion topicUpsertion,string currentLoggedUser);
     }
 
     public class TopicRepository : ITopicRepository
@@ -44,6 +45,47 @@ namespace CardsAPI.Repository
                 return false;
             }
         }
+
+        public async Task<bool> UpdateTopic(TopicUpsertion topicUpsertion, string currentLoggedUser)
+        {
+            try
+            {
+                var selectedTopic = _userDbContext.Topics.Where(x => x.Name == topicUpsertion.Name).Include(y=>y.Cards).SingleOrDefault();
+
+                if (selectedTopic == null) return false;
+
+                selectedTopic.Name = topicUpsertion.Name;
+                selectedTopic.Tag = topicUpsertion.Tag;
+
+                
+                if(selectedTopic.Cards == null)
+                {
+                    selectedTopic.Cards = new List<DbCard>();
+                }
+
+                foreach(Card card in topicUpsertion.Cards)
+                {
+                    var currentCard = selectedTopic.Cards.Where(x => x.Index == card.Index).SingleOrDefault();
+                    if (currentCard == null)
+                    {
+                        currentCard = new DbCard();
+                    }
+                    currentCard.Content = card.Content;
+                    currentCard.Index = card.Index;
+                }
+
+               selectedTopic.Cards.RemoveAll(x => !topicUpsertion.Cards.Any(z => z.Index == x.Index));
+                
+                await _userDbContext.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 
         public async Task<bool> AddTopic(TopicUpsertion topicUpsertion,string loggedUser)
         {
