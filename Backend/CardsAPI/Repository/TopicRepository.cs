@@ -13,6 +13,7 @@ namespace CardsAPI.Repository
     {
         Task<bool> AddTopic(TopicUpsertion topicUpsertion, string currentLoggedUser);
         Task<List<Topic>> GetTopics(string emailId);
+        Task<bool> DeleteTopic(TopicUpsertion topicUpsertion, string loggedUser);
     }
 
     public class TopicRepository : ITopicRepository
@@ -27,11 +28,33 @@ namespace CardsAPI.Repository
             _userDbContext = userDbContext;
         }
 
+        public async Task<bool> DeleteTopic(TopicUpsertion topicUpsertion, string loggedUser)
+        {
+            try
+            {
+                var selectedTopic = _userDbContext.Topics.Where(x => x.Name == topicUpsertion.Name).SingleOrDefault();
+
+                if (selectedTopic == null) return false;
+
+                _userDbContext.Topics.Remove(selectedTopic);
+                await _userDbContext.SaveChangesAsync();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> AddTopic(TopicUpsertion topicUpsertion,string loggedUser)
         {
             try
             {
-                var currentUser = _userDbContext.NotesUsers.Where(x => x.Email == loggedUser).Single() as DbUser;
+                
+                var currentUser = _userDbContext.NotesUsers.Where(z => z.Email == loggedUser)
+                        .Include(x => x.Topics).SingleOrDefault();
+                //var currentUser = _userDbContext.NotesUsers.Where(x => x.Email == loggedUser).Single() as DbUser;
                 if (currentUser.Topics == null)
                 {
                     currentUser.Topics = new List<DbTopic>();
@@ -78,10 +101,6 @@ namespace CardsAPI.Repository
                     .Include(x => x.Topics)
                         .ThenInclude(y => y.Cards).SingleOrDefault();
 
-
-
-
-
                 List<Topic> topicList = new List<Topic>();
                 if (currentUser.Topics.Count > 0)
                 {
@@ -97,7 +116,7 @@ namespace CardsAPI.Repository
                         }
                         else
                         {
-                            return null;
+                            return Task.FromResult(new List<Topic>());
                         }
 
                         foreach (DbCard dbCard in dbTopic.Cards)
@@ -113,7 +132,7 @@ namespace CardsAPI.Repository
                     return Task.FromResult(topicList);
                 }
                 else
-                    return null;
+                    return Task.FromResult(new List<Topic>());
             }
             catch(Exception ex)
             {

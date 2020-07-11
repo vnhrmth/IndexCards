@@ -15,16 +15,35 @@ namespace CardsAPI.Controllers
     public class HomeController : Controller
     {
         private readonly ITopicServices _topicServices;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
 
         public HomeController(UserManager<IdentityUser> userManager,
                               SignInManager<IdentityUser> signInManager,
                               ITopicServices topicServices)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _topicServices = topicServices;
+        }
+
+        [HttpPost("DeleteTopic")]
+        public async Task<IActionResult> DeleteTopic([FromBody] TopicUpsertion topicUpsertion)
+        {
+            try
+            {
+                var isAuthenticated = User.Identity.IsAuthenticated;
+
+                if (isAuthenticated)
+                {
+                    var currentLoggedUser = User.Identity.Name;
+                    return Ok(await _topicServices.DeleteTopic(topicUpsertion, currentLoggedUser));
+                }
+                else
+                {
+                    return BadRequest("Please Login!!");
+                }
+            }
+            catch (LoginException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost("CreateTopic")]
