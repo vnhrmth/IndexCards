@@ -122,7 +122,8 @@ namespace CardsAPI.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.MailId)
                 }),
-                Expires = DateTime.UtcNow.AddHours(8),
+                //Expires = DateTime.UtcNow.AddHours(8),
+                Expires = DateTime.UtcNow.AddSeconds(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

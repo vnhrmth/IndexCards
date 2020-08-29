@@ -91,6 +91,7 @@ namespace CardsAPI.Repository
         {
             try
             {
+
                 var currentUser = _userDbContext.NotesUsers.Where(z => z.Email == loggedUser)
                         .Include(x => x.Topics).SingleOrDefault();
 

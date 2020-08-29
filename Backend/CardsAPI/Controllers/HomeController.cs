@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CardsAPI.ExceptionHandling;
 using CardsAPI.Models;
 using CardsAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CardsAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class HomeController : Controller
     {
         private readonly ITopicServices _topicServices;
