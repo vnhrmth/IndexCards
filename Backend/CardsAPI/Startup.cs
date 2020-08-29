@@ -6,6 +6,7 @@ using CardsAPI.Helper;
 using CardsAPI.Models;
 using CardsAPI.Repository;
 using CardsAPI.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -88,7 +89,8 @@ namespace CardsAPI
 
             services.ConfigureApplicationCookie(x =>
             {
-                x.ExpireTimeSpan = TimeSpan.FromDays(1);//TODO check what is the ideal time for expiring tokens.
+                x.ExpireTimeSpan = TimeSpan.FromSeconds(15);
+                //x.ExpireTimeSpan = TimeSpan.FromDays(1);//TODO check what is the ideal time for expiring tokens.
             });
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -96,12 +98,16 @@ namespace CardsAPI
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthorization();
 
             services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                
             }).
+            AddCookie(cfg => cfg.SlidingExpiration = true).
             AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
@@ -111,7 +117,9 @@ namespace CardsAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 
@@ -137,6 +145,9 @@ namespace CardsAPI
             {
                 app.UseHsts();
             }
+
+          
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
