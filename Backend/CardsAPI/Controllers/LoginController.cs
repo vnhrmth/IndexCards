@@ -18,6 +18,7 @@ using CardsAPI.Helper;
 
 namespace CardsAPI.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
@@ -37,6 +38,9 @@ namespace CardsAPI.Controllers
         }
 
         [HttpPost("Signup")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Signup([FromBody]UserUpsertion user)
         {
             try
@@ -46,12 +50,11 @@ namespace CardsAPI.Controllers
                     UserName = user.MailId,
                     Email = user.MailId,
                 };
+
                 var result = await _userManager.CreateAsync(loginUser, user.Password);
                 if (result.Succeeded)
                 {
-                    HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
-                    httpResponseMessage.StatusCode = HttpStatusCode.Created;
-                    return Created(string.Empty, httpResponseMessage);
+                    return Ok(result.Succeeded);
                 }
 
                 var errorStr = "";
@@ -59,12 +62,9 @@ namespace CardsAPI.Controllers
                 {
                     errorStr += error.Description;
                 }
-                throw new LoginException(errorStr);
+
+                return BadRequest(errorStr);
             }
-            catch(LoginException ex) 
-	        {
-                return BadRequest(ex.Message);
-		    }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);

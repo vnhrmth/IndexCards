@@ -13,7 +13,7 @@ namespace CardsAPI.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = "Bearer")]
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         private readonly ITopicServices _topicServices;
 
